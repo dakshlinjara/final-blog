@@ -4,8 +4,6 @@ from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from datetime import date
-import psycopg2
-
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
@@ -14,20 +12,23 @@ from forms import CreatePostForm
 from forms import RegisterForm
 from forms import LoginForm
 from forms import CommentForm
-from dotenv import load_dotenv
-import os
+import psycopg2
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
-load_dotenv()
+
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://final_blogs_user:7w8KC3zMLv4KVMCPiRz6K3nb9HipdH0v@dpg-ct719n3qf0us738b6d20-a.oregon-postgres.render.com/final_blogs'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+from flask_migrate import Migrate
+
+migrate = Migrate(app, db)
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)
