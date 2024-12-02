@@ -4,7 +4,7 @@ from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from datetime import date
-
+import psycopg2
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
