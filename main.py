@@ -25,9 +25,7 @@ Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://final_blogs_user:7w8KC3zMLv4KVMCPiRz6K3nb9HipdH0v@dpg-ct719n3qf0us738b6d20-a.oregon-postgres.render.com/final_blogs'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-from flask_migrate import Migrate
 
-migrate = Migrate(app, db)
 
 
 login_manager = LoginManager()
