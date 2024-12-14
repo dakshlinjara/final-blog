@@ -50,11 +50,11 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(300), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # ForeignKey to User
-    post_id = db.Column(db.Integer, db.ForeignKey('blog_posts.id'))  # ForeignKey to BlogPost
+    post_id = db.Column(db.Integer, db.ForeignKey('blog_posts.id', ondelete="CASCADE"))  # ForeignKey to BlogPost
 
     # Relationships
     author = db.relationship('User', back_populates='comments')  # Many-to-one to User
-    post = db.relationship('BlogPost', back_populates='comments', cascade="all, delete")  # Many-to-one to BlogPost
+    post = db.relationship('BlogPost', back_populates='comments')  # Many-to-one to BlogPost
 
 
 class User(UserMixin, db.Model):
@@ -79,7 +79,7 @@ class BlogPost(db.Model):
     img_url = db.Column(db.String(250), nullable=False)
 
     # One-to-many relationship to Comments
-    comments = db.relationship('Comments', back_populates='post')
+    comments = db.relationship('Comments', back_populates='post', cascade="all, delete", lazy=True)
 
 
 
