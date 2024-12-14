@@ -56,6 +56,13 @@
                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1024px-Default_pfp.svg.png">
                     </div>
                             <p>{{comment.text|safe}}</p>
+
+                      {% if  logged_in: %}
+                       {% if id==1: %}
+          
+                      <a href="{{url_for('delete_comment', comment_id=comment.id) }}">✘</a>
+                       {% endif %}
+                      {% endif %}
                             <span class="date sub-text">{{comment.author.name}}</span>
                         {% endfor %}
                         {%endif%}
