@@ -220,7 +220,7 @@ def delete_post(post_id):
 
 @app.route("/commentdelete/<comment_id>")
 @login_required
-def delete_comment(post_id):
+def delete_comment(comment_id):
     comment_to_delete = Comments.query.get(comment_id)
     db.session.delete(comment_to_delete)
     db.session.commit()
