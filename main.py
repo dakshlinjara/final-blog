@@ -221,10 +221,21 @@ def delete_post(post_id):
 @app.route("/commentdelete/<comment_id>")
 @login_required
 def delete_comment(comment_id):
+    # Query the comment to delete
     comment_to_delete = Comments.query.get(comment_id)
+    
+    if not comment_to_delete:
+        return "Comment not found", 404
+
+    # Store the post_id before deleting the comment
+    post_id = comment_to_delete.post_id
+    
+    # Delete the comment
     db.session.delete(comment_to_delete)
     db.session.commit()
-    return redirect(url_for('show_post', post_id=comment_to_delete.post_id))
+    
+    # Redirect to the post page using the stored post_id
+    return redirect(url_for('show_post', post_id=post_id))
 
 
 
