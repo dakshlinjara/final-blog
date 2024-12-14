@@ -144,15 +144,18 @@ def logout():
 def show_post(post_id):
     requested_post = BlogPost.query.get(post_id)
     form = CommentForm()
-    comments = Comments.query.all()
+    # Filter comments to only include those associated with the current post
+    comments = Comments.query.filter_by(post_id=post_id).all()
+
     if form.validate_on_submit():
         text = form.text.data
         new_comment = Comments(text=text, user_id=current_user.id, post_id=post_id)
         db.session.add(new_comment)
         db.session.commit()
-        # After adding the new comment, redirect to the same page to reload comments
+        # Redirect to the same page to reload comments
         return redirect(url_for("show_post", post_id=post_id))
-    return render_template("post.html", post=requested_post,form=form,comments = comments if comments else None )
+
+    return render_template("post.html", post=requested_post, form=form, comments=comments if comments else None)
 
 
 @app.route("/about")
