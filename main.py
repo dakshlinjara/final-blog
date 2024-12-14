@@ -235,7 +235,7 @@ def delete_comment(comment_id):
     db.session.commit()
     
     # Redirect to the post page using the stored post_id
-    return redirect(url_for('show_post', post_id=post_id))
+    return redirect(url_for('get_all_posts'))
 
 
 
